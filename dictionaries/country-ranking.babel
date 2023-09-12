@@ -27,14 +27,28 @@
 		<language>
 			<code>en-US</code>
 		</language>
+		<language>
+			<code>ko-KR</code>
+		</language>
+		<language>
+			<code>ru-RU</code>
+		</language>
 	</languages>
 	<translation_packages>
 		<translation_package>
 			<name>main</name>
 			<translation_urls>
 				<translation_url>
-					<path>en-US.json</path>
+					<path>en.json</path>
 					<language>en-US</language>
+				</translation_url>
+				<translation_url>
+					<path>ko.json</path>
+					<language>ko-KR</language>
+				</translation_url>
+				<translation_url>
+					<path>ru.json</path>
+					<language>ru-RU</language>
 				</translation_url>
 			</translation_urls>
 		</translation_package>

@@ -17,7 +17,7 @@ function Layout({ children }: Props) {
           <Toaster />
         </div>
         <Header />
-        <section className="flex grow text-white">{children}</section>
+        <section className="flex grow p-4 text-white">{children}</section>
         <Footer />
       </div>
     </>
