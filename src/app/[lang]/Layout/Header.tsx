@@ -21,7 +21,7 @@ function Header({ className }: Props) {
         zIndex: 100,
       }}
     >
-      <h2 className="text-center m-4">Country Ranking APP</h2>
+      <h2 className="m-4 text-center">vWiki</h2>
     </header>
   );
 }

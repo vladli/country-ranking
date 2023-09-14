@@ -26,7 +26,10 @@ export default async function RootLayout({
     console.log(error);
   }
   return (
-    <html lang={params.lang}>
+    <html
+      data-theme="mytheme"
+      lang={params.lang}
+    >
       <body>
         <NextIntlClientProvider
           locale={params.lang}

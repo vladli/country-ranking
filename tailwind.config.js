@@ -15,14 +15,16 @@ module.exports = {
     logs: false,
     base: false,
     themes: [
+      "dark",
       {
-        light: {
+        mytheme: {
           primary: "#0F172A", //bg-slate-900
           secondary: "#ef4444",
           accent: "#1dcdbc",
           neutral: "#2b3440",
           "base-100": "#fff",
-          "bg-base-200": "#f5f5f5",
+          "base-200": "#2D3B4F",
+          "bg-base-200": "#000",
           info: "#3abff8",
 
           success: "#36d399",
