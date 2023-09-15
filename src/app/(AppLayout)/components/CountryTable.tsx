@@ -1,12 +1,25 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import { DataType } from "../page";
 
-export default function CountryTable({ data }: { data: DataType | undefined }) {
+import CountryModal from "./CountryModal";
+
+export default function CountryTable({
+  data,
+}: {
+  data: DataType[] | undefined;
+}) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [selectedCountry, setSelectedCountry] = useState<DataType | null>(null);
+  useEffect(() => {
+    if (selectedCountry) dialog.current?.showModal();
+  }, [selectedCountry]);
+
   return (
     <div className="overflow-x-auto">
-      <table className="table">
+      <table className="table max-md:table-xs">
         {/* head */}
         <thead className="text-white">
           <tr>
@@ -24,16 +37,20 @@ export default function CountryTable({ data }: { data: DataType | undefined }) {
             <tr
               className="hover cursor-pointer"
               key={country.name.common}
+              onClick={() => setSelectedCountry(country)}
             >
               <td>
-                {
-                  <Image
-                    alt=""
-                    height={32}
-                    src={country.flags.svg}
-                    width={32}
-                  />
-                }
+                <div className="h-4 w-8">
+                  {
+                    <Image
+                      alt=""
+                      height={1100}
+                      priority
+                      src={country.flags.svg}
+                      width={750}
+                    />
+                  }
+                </div>
               </td>
               <td>{country.cca3}</td>
               <td>
@@ -66,6 +83,10 @@ export default function CountryTable({ data }: { data: DataType | undefined }) {
           </tr>
         </tfoot>
       </table>
+      <CountryModal
+        ref={dialog}
+        {...{ selectedCountry, setSelectedCountry }}
+      />
     </div>
   );
 }

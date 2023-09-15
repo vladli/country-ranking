@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import { useLocale } from "next-intl";
-import { useRouter } from "next-intl/client";
 
 import { cn } from "@/lib/utils";
 
@@ -10,9 +8,6 @@ type Props = {
 };
 
 function Header({ className }: Props) {
-  const router = useRouter();
-  const locale = useLocale();
-
   return (
     <header
       className={cn(" flex w-full flex-col text-white", className)}
@@ -21,7 +16,7 @@ function Header({ className }: Props) {
         zIndex: 100,
       }}
     >
-      <h2 className="m-4 text-center">vWiki</h2>
+      <h2 className="m-4 text-center">Country App</h2>
     </header>
   );
 }

@@ -12,15 +12,27 @@ export type DataType = {
   flags: {
     svg: string;
     png: string;
-    alg: string;
+    alt: string;
   };
   area: number;
   population: number;
-}[];
+  currencies: {
+    [key: string]: {
+      name: string;
+      symbol: string;
+    };
+  };
+  languages: {
+    [key: string]: string;
+  };
+  region: string;
+  subregion: string;
+  tld: string[];
+};
 
-async function getCountryList(): Promise<DataType | undefined> {
+async function getCountryList(): Promise<DataType[] | undefined> {
   const options = {
-    url: "https://restcountries.com/v3.1/all?fields=name,flags,cca3,capital,area,population",
+    url: "https://restcountries.com/v3.1/all?fields=tld,name,flags,cca3,capital,area,population,currencies,region,subregion,languages",
   };
   try {
     const response = await fetch(options.url);
