@@ -7,7 +7,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "rest-countries-gamma.vercel.app",
+        hostname: "flagcdn.com",
       },
     ],
   },
