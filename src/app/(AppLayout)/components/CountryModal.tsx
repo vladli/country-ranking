@@ -20,14 +20,14 @@ function CountryModal(
     Area: selectedCountry.area.toLocaleString("en-US") + " km²",
     Population: selectedCountry.population.toLocaleString("en-US"),
     Region: selectedCountry.region + ` (${selectedCountry.subregion})`,
-    Domains: selectedCountry.tld.join(", "),
+    "Internet Domain": selectedCountry.tld.join(", "),
   };
   return (
     <dialog
       className="modal"
       ref={ref}
     >
-      <div className="modal-box w-[95vw] max-w-[95vw] lg:w-[70vw]">
+      <div className="modal-box w-[95vw] max-w-[95vw] lg:w-[70vw] 2xl:w-[50vw]">
         <form method="dialog">
           <button
             className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
@@ -41,14 +41,17 @@ function CountryModal(
           <div className="flex w-[50%] flex-col items-center gap-2 border p-1 pb-2">
             <Image
               alt=""
+              className="m-auto"
               height={1100}
               priority
               src={selectedCountry.flags.svg}
               width={750}
             />
-            <blockquote className="relative mx-auto max-w-lg text-center">
-              {selectedCountry.flags.alt}
-            </blockquote>
+            {selectedCountry.flags.alt ? (
+              <blockquote className="relative mx-auto max-w-lg text-center">
+                {selectedCountry.flags.alt}
+              </blockquote>
+            ) : null}
           </div>
           <div className="flex flex-col">
             {Object.entries(country).map(([key, value]) => (
@@ -57,7 +60,7 @@ function CountryModal(
               </div>
             ))}
             <div className="flex">
-              <strong>Language:&nbsp;</strong>
+              <strong>Official Language:&nbsp;</strong>
               <div className="flex flex-col">
                 {Object.entries(selectedCountry.languages).map(
                   ([key, value]: any) => (

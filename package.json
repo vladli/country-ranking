@@ -6,15 +6,12 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "generate": "pnpx prisma generate",
-    "studio": "pnpx prisma studio"
+    "lint": "next lint"
   },
   "dependencies": {
-    "daisyui": "^3.7.4",
+    "daisyui": "^3.7.5",
     "framer-motion": "^10.16.4",
     "next": "13.4.19",
-    "next-intl": "3.0.0-beta.16",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -27,7 +24,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
-    "@types/node": "^20.6.0",
+    "@types/node": "^20.6.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.15",

@@ -12,8 +12,9 @@ export type DataType = {
   flags: {
     svg: string;
     png: string;
-    alt: string;
+    alt?: string;
   };
+
   area: number;
   population: number;
   currencies: {
