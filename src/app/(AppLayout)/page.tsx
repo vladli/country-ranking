@@ -1,5 +1,6 @@
 import React from "react";
 
+import CountrySearch from "./components/CountrySearch";
 import CountryTable from "./components/CountryTable";
 
 export type DataType = {
@@ -58,10 +59,24 @@ async function getCountryList(): Promise<DataType[] | undefined> {
   }
 }
 
-export default async function Page() {
-  const data = await getCountryList();
+type Props = {
+  searchParams: {
+    country?: string;
+  };
+};
+
+export default async function Page({ searchParams }: Props) {
+  const { country } = searchParams;
+  let data = await getCountryList();
+  if (country !== undefined && country !== "") {
+    const countryLowerCase = country.toLowerCase();
+    data = data?.filter((item) =>
+      item.name.common.toLowerCase().includes(countryLowerCase)
+    );
+  }
   return (
     <main className="w-full">
+      <CountrySearch />
       <CountryTable {...{ data }} />
     </main>
   );
