@@ -1,5 +1,6 @@
 "use client";
 
+import { NextUIProvider } from "@nextui-org/react";
 import { SWRConfig } from "swr";
 
 type Props = {
@@ -8,14 +9,16 @@ type Props = {
 
 function Providers({ children }: Props) {
   return (
-    <SWRConfig
-      value={{
-        fetcher: (resource, init) =>
-          fetch(resource, init).then((res) => res.json()),
-      }}
-    >
-      {children}
-    </SWRConfig>
+    <NextUIProvider>
+      <SWRConfig
+        value={{
+          fetcher: (resource, init) =>
+            fetch(resource, init).then((res) => res.json()),
+        }}
+      >
+        {children}
+      </SWRConfig>
+    </NextUIProvider>
   );
 }
 

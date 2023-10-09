@@ -75,7 +75,7 @@ export default async function Page({ searchParams }: Props) {
     );
   }
   return (
-    <main className="w-full">
+    <main className="w-full p-4">
       <CountrySearch />
       <CountryTable {...{ data }} />
     </main>

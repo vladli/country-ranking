@@ -12,14 +12,12 @@ type Props = {
 function Layout({ children }: Props) {
   return (
     <>
-      <div className="flex min-h-screen flex-col bg-gradient-to-r from-slate-600 via-slate-700 to-slate-800">
-        <div>
-          <Toaster />
-        </div>
+      <main className="bg-slate-100">
         <Header />
-        <section className="flex grow p-4 text-white">{children}</section>
+        <section className="flex grow">{children}</section>
         <Footer />
-      </div>
+      </main>
+      <Toaster />
     </>
   );
 }

@@ -11,7 +11,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html data-theme="mytheme">
+    <html>
       <body>
         <Providers>{children}</Providers>
       </body>

@@ -1,22 +1,21 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
-import { cn } from "@/lib/utils";
-
-type Props = {
-  className?: string;
-};
-
-function Header({ className }: Props) {
+function Header() {
   return (
-    <header
-      className={cn(" flex w-full flex-col text-white", className)}
-      style={{
-        top: 0,
-        zIndex: 100,
-      }}
-    >
-      <h2 className="m-4 text-center">Country App</h2>
+    <header className="w-full">
+      <div className="flex items-center justify-center pt-2">
+        <Image
+          alt=""
+          className="h-28 w-28 rounded-full"
+          height={256}
+          priority
+          quality={100}
+          src="/logo.jpeg"
+          width={256}
+        />
+      </div>
     </header>
   );
 }

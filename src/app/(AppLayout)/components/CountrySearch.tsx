@@ -1,5 +1,7 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { FiSearch } from "react-icons/fi";
+import { Input } from "@nextui-org/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import useDebounce from "@/hooks/useDebounce";
@@ -32,21 +34,16 @@ export default function CountrySearch() {
   }, [debouncedInputText]);
 
   return (
-    <div className="relative max-w-xs">
-      <input
-        className="input input-bordered w-full"
-        onChange={(e) => handleChange(e)}
-        placeholder="Type here"
-        type="text"
-        value={input}
-      />
-      <button
-        className="btn btn-circle btn-ghost btn-sm absolute right-1 top-1/2"
-        onClick={handleClearInput}
-        style={{ transform: "translateY(-50%)" }}
-      >
-        X
-      </button>
-    </div>
+    <Input
+      classNames={{ inputWrapper: ["bg-white"] }}
+      isClearable
+      onChange={handleChange}
+      onClear={handleClearInput}
+      placeholder="Search by country name"
+      size="lg"
+      startContent={<FiSearch />}
+      value={input}
+      variant="bordered"
+    />
   );
 }
