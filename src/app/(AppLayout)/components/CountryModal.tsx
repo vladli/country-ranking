@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Divider,
@@ -12,7 +12,7 @@ import {
   Tab,
   Tabs,
 } from "@nextui-org/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 import { DataType } from "../page";
@@ -29,6 +29,7 @@ export default function CountryModal({
   onOpenChange,
 }: Props) {
   const [loaded, setLoaded] = useState(false);
+
   if (!selectedCountry) return null;
   const country = {
     "Official Name": selectedCountry.name.official,
@@ -38,7 +39,7 @@ export default function CountryModal({
     Region: selectedCountry.region + ` (${selectedCountry.subregion})`,
     "Internet Domain": selectedCountry.tld.join(", "),
   };
-  console.log(loaded);
+
   return (
     <Modal
       backdrop="blur"
@@ -65,6 +66,7 @@ export default function CountryModal({
       }}
       onClose={() => setLoaded(false)}
       onOpenChange={onOpenChange}
+      scrollBehavior="inside"
       size="2xl"
     >
       <ModalContent>
@@ -87,7 +89,7 @@ export default function CountryModal({
                     initial={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <div className="relative flex h-[25rem] w-[100%]">
+                    <div className="relative flex h-[20rem] w-[100%]">
                       <Image
                         alt=""
                         className="m-auto select-none object-contain"
@@ -110,7 +112,7 @@ export default function CountryModal({
                   >
                     <motion.div
                       animate={{ opacity: 1, y: 0 }}
-                      className="relative flex h-[25rem] w-[100%]"
+                      className="relative flex h-[20rem] w-[100%]"
                       initial={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.5 }}
                     >
@@ -135,7 +137,7 @@ export default function CountryModal({
               </Tabs>
 
               <Divider />
-              <div className="flex flex-col">
+              <div>
                 {Object.entries(country).map(([key, value]) => (
                   <p key={key}>
                     <strong>{key}:</strong> {value}
