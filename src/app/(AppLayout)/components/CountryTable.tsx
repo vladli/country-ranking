@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Chip,
+  SortDescriptor,
   Table,
   TableBody,
   TableCell,
@@ -35,7 +36,9 @@ export default function CountryTable({
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [selectedCountry, setSelectedCountry] = useState<DataType | null>(null);
-
+  const [sortDescriptor, setSortDescriptor] = useState<
+    SortDescriptor | undefined
+  >({ column: "name.common", direction: "ascending" });
   const handleClick = (item: DataType) => {
     setSelectedCountry(item);
     onOpen();
@@ -78,19 +81,59 @@ export default function CountryTable({
         return cellValue;
     }
   }, []);
+  const sortFunction = (
+    items: DataType[] | undefined,
+    sortDescriptor: SortDescriptor
+  ) => {
+    const { column, direction } = sortDescriptor;
+    const getColumnValue = (item: DataType) => {
+      if (column === "capital") return item.capital[0];
+      return column
+        ?.toString()
+        .split(".")
+        .reduce((obj: any, key: string) => obj?.[key], item);
+    };
+    return [...(items as DataType[])]?.sort((a, b) => {
+      const valueA = getColumnValue(a);
+      const valueB = getColumnValue(b);
+      if (typeof valueA === "number" && typeof valueB === "number") {
+        return (direction === "ascending" ? 1 : -1) * (valueA - valueB);
+      } else if (typeof valueA === "string" && typeof valueB === "string") {
+        return direction === "ascending"
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      }
+      return 0;
+    });
+  };
 
+  const sortedData = sortDescriptor
+    ? sortFunction(data, sortDescriptor)
+    : data || [];
   return (
     <>
       <Table
         aria-label="Country App"
         className="mt-2 select-none"
+        onSortChange={setSortDescriptor}
+        sortDescriptor={sortDescriptor}
       >
         <TableHeader columns={columns}>
           {(column) => (
-            <TableColumn key={column.uid}>{column.name}</TableColumn>
+            <TableColumn
+              allowsSorting={
+                column.uid === "name.common" ||
+                column.uid === "capital" ||
+                column.uid === "area" ||
+                column.uid === "population"
+              }
+              key={column.uid}
+            >
+              {column.name}
+            </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={data}>
+        <TableBody items={sortedData}>
           {(item) => (
             <TableRow
               className="cursor-pointer hover:bg-zinc-100"

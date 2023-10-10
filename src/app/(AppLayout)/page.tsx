@@ -43,13 +43,7 @@ async function getCountryList(): Promise<DataType[] | undefined> {
       data.sort((a: any, b: any) => {
         const nameA = a.name.common.toUpperCase();
         const nameB = b.name.common.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
+        return nameA.localeCompare(nameB);
       });
       return data;
     }
