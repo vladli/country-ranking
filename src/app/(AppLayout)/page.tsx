@@ -15,6 +15,10 @@ export type DataType = {
     png: string;
     alt?: string;
   };
+  coatOfArms: {
+    svg: string;
+    png: string;
+  };
 
   area: number;
   population: number;
@@ -34,7 +38,7 @@ export type DataType = {
 
 async function getCountryList(): Promise<DataType[] | undefined> {
   const options = {
-    url: "https://restcountries.com/v3.1/all?fields=tld,name,flags,cca3,capital,area,population,currencies,region,subregion,languages",
+    url: "https://restcountries.com/v3.1/all?fields=tld,name,flags,cca3,capital,area,population,currencies,region,subregion,languages,coatOfArms",
   };
   try {
     const response = await fetch(options.url);

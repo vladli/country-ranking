@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import {
   Button,
   Divider,
@@ -8,7 +8,11 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Spinner,
+  Tab,
+  Tabs,
 } from "@nextui-org/react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
 import { DataType } from "../page";
@@ -24,6 +28,7 @@ export default function CountryModal({
   isOpen,
   onOpenChange,
 }: Props) {
+  const [loaded, setLoaded] = useState(false);
   if (!selectedCountry) return null;
   const country = {
     "Official Name": selectedCountry.name.official,
@@ -33,33 +38,102 @@ export default function CountryModal({
     Region: selectedCountry.region + ` (${selectedCountry.subregion})`,
     "Internet Domain": selectedCountry.tld.join(", "),
   };
+  console.log(loaded);
   return (
     <Modal
+      backdrop="blur"
       isOpen={isOpen}
+      motionProps={{
+        variants: {
+          enter: {
+            y: 0,
+            opacity: 1,
+            transition: {
+              duration: 0.3,
+              ease: "easeOut",
+            },
+          },
+          exit: {
+            y: -20,
+            opacity: 0,
+            transition: {
+              duration: 0.2,
+              ease: "easeIn",
+            },
+          },
+        },
+      }}
+      onClose={() => setLoaded(false)}
       onOpenChange={onOpenChange}
       size="2xl"
     >
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="">
-              {selectedCountry.name.common}
-            </ModalHeader>
+            <ModalHeader>{selectedCountry.name.common}</ModalHeader>
             <ModalBody>
-              <Image
-                alt=""
-                className="m-auto select-none rounded-lg border"
-                height={1100}
-                priority
-                src={selectedCountry.flags.svg}
-                width={750}
-              />
+              <Tabs
+                aria-label="Options"
+                className="justify-center"
+                size="lg"
+              >
+                <Tab
+                  key="flag"
+                  title="Flag"
+                >
+                  <motion.div
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex flex-col gap-2"
+                    initial={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="relative flex h-[25rem] w-[100%]">
+                      <Image
+                        alt=""
+                        className="m-auto select-none object-contain"
+                        fill
+                        priority
+                        src={selectedCountry.flags.svg}
+                      />
+                    </div>
+                    {selectedCountry.flags.alt ? (
+                      <blockquote className="mx-auto rounded-lg border bg-zinc-100 p-2">
+                        {selectedCountry.flags.alt}
+                      </blockquote>
+                    ) : null}
+                  </motion.div>
+                </Tab>
+                {selectedCountry.coatOfArms.svg ? (
+                  <Tab
+                    key="coatOfArms"
+                    title="Coat Of Arms"
+                  >
+                    <motion.div
+                      animate={{ opacity: 1, y: 0 }}
+                      className="relative flex h-[25rem] w-[100%]"
+                      initial={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {!loaded ? (
+                        <Spinner
+                          className="flex w-full justify-center"
+                          label="Loading..."
+                          size="lg"
+                        />
+                      ) : null}
+                      <Image
+                        alt=""
+                        className="m-auto select-none rounded-lg border object-contain"
+                        fill
+                        onLoad={() => setLoaded(true)}
+                        priority
+                        src={selectedCountry.coatOfArms.svg}
+                      />
+                    </motion.div>
+                  </Tab>
+                ) : null}
+              </Tabs>
 
-              {selectedCountry.flags.alt ? (
-                <blockquote className="mx-auto rounded-lg border bg-zinc-100 p-2">
-                  {selectedCountry.flags.alt}
-                </blockquote>
-              ) : null}
               <Divider />
               <div className="flex flex-col">
                 {Object.entries(country).map(([key, value]) => (

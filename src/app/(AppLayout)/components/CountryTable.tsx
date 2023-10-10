@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import {
-  Chip,
   SortDescriptor,
   Table,
   TableBody,
@@ -9,9 +8,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-  Tooltip,
   useDisclosure,
-  User,
 } from "@nextui-org/react";
 import Image from "next/image";
 
