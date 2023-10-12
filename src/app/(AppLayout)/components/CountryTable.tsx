@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SortDescriptor,
   Table,
@@ -10,6 +10,7 @@ import {
   TableRow,
   useDisclosure,
 } from "@nextui-org/react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
 import { DataType } from "../page";
@@ -36,6 +37,7 @@ export default function CountryTable({
   const [sortDescriptor, setSortDescriptor] = useState<
     SortDescriptor | undefined
   >({ column: "name.common", direction: "ascending" });
+
   const handleClick = (item: DataType) => {
     setSelectedCountry(item);
     onOpen();
@@ -78,6 +80,7 @@ export default function CountryTable({
         return cellValue;
     }
   }, []);
+
   const sortFunction = (
     items: DataType[] | undefined,
     sortDescriptor: SortDescriptor
@@ -107,8 +110,13 @@ export default function CountryTable({
   const sortedData = sortDescriptor
     ? sortFunction(data, sortDescriptor)
     : data || [];
+
   return (
-    <>
+    <motion.section
+      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: 100 }}
+      transition={{ duration: 1 }}
+    >
       <Table
         aria-label="Country App"
         className="mt-2 select-none"
@@ -130,7 +138,10 @@ export default function CountryTable({
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={sortedData}>
+        <TableBody
+          items={sortedData}
+          key={sortedData.length}
+        >
           {(item) => (
             <TableRow
               className="cursor-pointer hover:bg-zinc-100"
@@ -151,6 +162,6 @@ export default function CountryTable({
           onOpenChange,
         }}
       />
-    </>
+    </motion.section>
   );
 }

@@ -2,6 +2,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { Input } from "@nextui-org/react";
+import { motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import useDebounce from "@/hooks/useDebounce";
@@ -31,19 +32,26 @@ export default function CountrySearch() {
       params.set("country", debouncedInputText);
       router.push(pathname + "?" + params.toString());
     }
+    if (input == "") handleClearInput();
   }, [debouncedInputText]);
 
   return (
-    <Input
-      classNames={{ inputWrapper: ["bg-white"] }}
-      isClearable
-      onChange={handleChange}
-      onClear={handleClearInput}
-      placeholder="Search by country name"
-      size="lg"
-      startContent={<FiSearch />}
-      value={input}
-      variant="bordered"
-    />
+    <motion.div
+      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: -100 }}
+      transition={{ duration: 1 }}
+    >
+      <Input
+        classNames={{ inputWrapper: ["bg-white"] }}
+        isClearable
+        onChange={handleChange}
+        onClear={handleClearInput}
+        placeholder="Search by country name"
+        size="lg"
+        startContent={<FiSearch />}
+        value={input}
+        variant="bordered"
+      />
+    </motion.div>
   );
 }
