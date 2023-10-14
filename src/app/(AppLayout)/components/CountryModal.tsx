@@ -125,7 +125,7 @@ export default function CountryModal({
                       ) : null}
                       <Image
                         alt=""
-                        className="m-auto select-none rounded-lg border object-contain"
+                        className="m-auto select-none object-contain"
                         fill
                         onLoad={() => setLoaded(true)}
                         priority
