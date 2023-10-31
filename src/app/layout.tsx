@@ -5,6 +5,8 @@ export const metadata = {
   title: "Country App | vladli.dev",
 };
 
+export const runtime = "edge";
+
 export default async function RootLayout({
   children,
 }: {
