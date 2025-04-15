@@ -58,12 +58,13 @@ async function getCountryList(): Promise<DataType[] | undefined> {
 }
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     country?: string;
-  };
+  }>;
 };
 
-export default async function Page({ searchParams }: Props) {
+export default async function Page(props: Props) {
+  const searchParams = await props.searchParams;
   const { country } = searchParams;
   let data = await getCountryList();
   if (country !== undefined && country !== "") {

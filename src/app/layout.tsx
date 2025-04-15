@@ -2,7 +2,7 @@ import Providers from "./providers";
 
 import "./globals.css";
 export const metadata = {
-  title: "Country App | vladli.dev",
+  title: "Country App | vladli.dev"
 };
 
 export const runtime = "edge";
