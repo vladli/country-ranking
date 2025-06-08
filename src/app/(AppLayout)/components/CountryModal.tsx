@@ -1,16 +1,16 @@
 "use client";
 import React, {useState} from "react";
 import {
-  Button,
-  Divider,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Spinner,
-  Tab,
-  Tabs,
+    Button,
+    Divider,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Spinner,
+    Tab,
+    Tabs,
 } from "@heroui/react";
 import {motion} from "framer-motion";
 import Image from "next/image";
@@ -37,7 +37,6 @@ export default function CountryModal({
         Area: selectedCountry.area.toLocaleString("en-US") + " km²",
         Population: selectedCountry.population.toLocaleString("en-US"),
         Region: selectedCountry.region + ` (${selectedCountry.subregion})`,
-        "Internet Domain": selectedCountry.tld.join(", "),
     };
 
     return (
